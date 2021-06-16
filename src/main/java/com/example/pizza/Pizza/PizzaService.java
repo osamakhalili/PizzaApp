@@ -42,9 +42,13 @@ public class PizzaService {
 
     }
     @Transactional
-    public void updatePizza(Integer pizzaId, String pizzaType, String pizzaSize, String notes) {
+    public void updatePizza(Integer pizzaId,String name, String pizzaType, String pizzaSize, String notes) {
         Pizza pizza = pizzaRepository.findById(pizzaId)
                 .orElseThrow(()-> new IllegalStateException("Pizza with id "+ pizzaId +"does not exist"));
+
+        if (name != null &&name.length()>0 &&!Objects.equals(pizza.getName(),name)) {
+            pizza.setName(name);
+        }
 
         if (pizzaType != null &&pizzaType.length()>0 &&!Objects.equals(pizza.getPizzaType(),pizzaType)) {
             pizza.setPizzaType(pizzaType);

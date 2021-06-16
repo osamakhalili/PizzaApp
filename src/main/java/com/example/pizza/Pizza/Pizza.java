@@ -8,6 +8,7 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id ;
+    private String  name;
     private String  pizzaType ;
     private String  pizzaSize ;
     private String  Notes ;
@@ -16,17 +17,27 @@ public class Pizza {
     public Pizza() {
     }
 
-    public Pizza(int id, String pizzaType, String pizzaSize, String notes) {
+    public Pizza(int id, String name, String pizzaType, String pizzaSize, String notes) {
         this.id = id;
+        this.name = name;
         this.pizzaType = pizzaType;
         this.pizzaSize = pizzaSize;
         Notes = notes;
     }
 
-    public Pizza(String pizzaType, String pizzaSize, String notes) {
+    public Pizza(String name, String pizzaType, String pizzaSize, String notes) {
+        this.name = name;
         this.pizzaType = pizzaType;
         this.pizzaSize = pizzaSize;
         Notes = notes;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -65,6 +76,7 @@ public class Pizza {
     public String toString() {
         return "Pizza{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", pizzaType='" + pizzaType + '\'' +
                 ", pizzaSize='" + pizzaSize + '\'' +
                 ", Notes='" + Notes + '\'' +
