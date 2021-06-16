@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path="api/pizza")
@@ -18,6 +19,11 @@ public class PizzaController {
     @GetMapping
     public List<Pizza> getPizza() {
     return pizzaService.getPizza();
+    }
+
+    @GetMapping(path = "{pizzaId}")
+    public Optional<Pizza> getPizza(@PathVariable("pizzaId") Integer pizzaId) {
+        return pizzaService.getPizzaByID(pizzaId);
     }
 
     @PostMapping

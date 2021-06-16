@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class PizzaService {
@@ -26,6 +27,9 @@ public class PizzaService {
 
     public List<Pizza> getPizza() {
         return pizzaRepository.findAll();
+    }
+    public Optional<Pizza> getPizzaByID(int id ) {
+        return pizzaRepository.findById(id);
     }
 
     public void deletPizza(int pizzaId) {
