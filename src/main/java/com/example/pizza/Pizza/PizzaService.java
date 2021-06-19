@@ -2,6 +2,7 @@ package com.example.pizza.Pizza;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -25,10 +26,44 @@ public class PizzaService {
 
     }
 
-    public List<Pizza> getPizza() {
+    public void patchPizza (int id , Pizza pizza) {
+
+        Pizza pizzas =  pizzaRepository.findById(id).
+                orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
+
+        boolean needUpdate = false;
+
+
+        if (StringUtils.hasLength(pizza.getName())) {
+            pizzas.setName(pizza.getName());
+            needUpdate = true;
+        }
+
+        if (StringUtils.hasLength(pizza.getPizzaType())) {
+            pizzas.setPizzaType(pizza.getPizzaType());
+            needUpdate = true;
+        }
+
+        if (StringUtils.hasLength(pizza.getPizzaSize())) {
+            pizzas.setPizzaSize(pizza.getPizzaSize());
+            needUpdate = true;
+        }
+        if (StringUtils.hasLength(pizza.getNotes())) {
+            pizzas.setNotes(pizza.getNotes());
+            needUpdate = true;
+
+        }
+
+        if (needUpdate) {
+            pizzaRepository.save(pizzas);
+        }
+
+    }
+
+    public List<Pizza> findAllPizza() {
         return pizzaRepository.findAll();
     }
-    public Optional<Pizza> getPizzaByID(int id ) {
+    public Optional<Pizza> findPizzaByID(int id ) {
         return pizzaRepository.findById(id);
     }
 

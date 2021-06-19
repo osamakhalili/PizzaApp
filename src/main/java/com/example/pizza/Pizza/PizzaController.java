@@ -18,12 +18,12 @@ public class PizzaController {
 
     @GetMapping
     public List<Pizza> getPizza() {
-    return pizzaService.getPizza();
+    return pizzaService.findAllPizza();
     }
 
-    @GetMapping(path = "{pizzaId}")
+    @GetMapping(path = "/{pizzaId}")
     public Optional<Pizza> getPizza(@PathVariable("pizzaId") Integer pizzaId) {
-        return pizzaService.getPizzaByID(pizzaId);
+        return pizzaService.findPizzaByID(pizzaId);
     }
 
     @PostMapping
@@ -31,12 +31,12 @@ public class PizzaController {
 
         pizzaService.addNewPizza(pizza);
     }
-    @DeleteMapping(path = "{pizzaId}")
+    @DeleteMapping(path = "/{pizzaId}")
     public void deletePizza (@PathVariable("pizzaId") Integer pizzaId){
         pizzaService.deletPizza(pizzaId);
 
     }
-    @PutMapping(path = "{pizzaId}")
+    @PutMapping(path = "/{pizzaId}")
     public void updatePizza (@PathVariable("pizzaId") Integer pizzaId,
                              @RequestParam(required = false) String name,
                              @RequestParam(required = false) String pizzaType,
@@ -44,6 +44,10 @@ public class PizzaController {
                              @RequestParam(required = false) String notes){
 
         pizzaService.updatePizza(pizzaId,name,pizzaType,pizzaSize,notes);
+    }
+    @PatchMapping("/{pizzaId}")
+    public void patchResource(@PathVariable int pizzaId, @RequestBody Pizza pizza) {
+        pizzaService.patchPizza(pizzaId, pizza);
     }
 
 }
